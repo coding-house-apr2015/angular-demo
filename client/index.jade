@@ -1,12 +1,12 @@
 doctype html
-html(lang='en')
+html(lang='en', ng-app='alpha')
   head
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     title Angular Demo
 
-    link(rel='stylesheet', href='/vendor/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='http://maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cosmo/bootstrap.min.css')
     link(rel='stylesheet', href='/vendor/font-awesome/css/font-awesome.min.css')
     link(rel='stylesheet', href=isProd ? '/index.min.css' : '/index.css')
     link(rel='shortcut icon', href='/favicon.ico')
@@ -18,21 +18,51 @@ html(lang='en')
     h1 Angular Demo
 
     .container-fluid
-      .row
+      .row(ng-controller='listfun')
         .col-xs-12
-          p 12 column
-      .row
-        .col-xs-3
-          p 3 col
-        .col-xs-4
-          p 4 col
-        .col-xs-5
-          p 5 col
-      .row
+          h1 List Fun
+          input(type='text', ng-model='numString')
+          button(ng-click='compute()') Compute
+          input(type='number', ng-model='number')
+          button(ng-click='addNumber()') Add Number
+          .row
+            .col-xs-6
+              h3 Numbers
+              #numbers
+                .number(ng-repeat='num in numbers track by $index', ng-click='removeNumber($index)', style='background-color:{{getBg(num)}};') {{num}}
+            .col-xs-6
+              h3 Stats
+              p {{sum}}
+              p {{product}}
+      .row(ng-controller='rainbow')
+        .col-xs-12
+          h1 Rainbow
+          input(type='color', ng-model='newcolor')
+          button.btn(ng-click='addColor()') Add Color
+          #colors
+            .color(ng-repeat='color in colors track by $index', style='background-color:{{color}};', ng-click='removeColor($index)') {{color}} {{z}}
+      .row(ng-controller='calculator')
+        .col-xs-12
+          h1 Calculator
+          input(type='number', ng-model='x')
+          input(type='text', ng-model='op')
+          input(type='number', ng-model='y')
+          button.btn.btn-success.btn-sm(ng-click='compute()') =
+          span {{result}}
+      .row(ng-controller='beta')
+        .col-xs-12
+          h1 BETA
+          p the value of x is {{x}}
+          p the value of y is {{y}}
+          p the sum of x and y is {{x + y}}
+      .row(ng-controller='gamma')
         .col-xs-6
-          p 6 col
+          h1 GAMMA I
+          p the value of x is {{x}}
         .col-xs-6
-          p 6 col
+          h1 GAMMA II
+          p the value of y is {{y}}
+          p the product of x, y and z is {{x*y*z}}
 
     script(src='/vendor/jquery/dist/jquery.min.js')
     script(src='/vendor/lodash/lodash.min.js')
